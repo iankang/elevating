@@ -1,0 +1,44 @@
+version: '3.1'
+volumes:
+  db-data:
+  sftp-data:
+services:
+  dbPostgresql:
+    image: postgres
+    restart: always
+    container_name: lending-repay-db-container
+    expose:
+      - 5433
+    volumes:
+      - db-data
+    ports:
+      - "5433:5433"
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+    command:
+      - -p 5433
+
+  app:
+    container_name:  lending-repay-api
+    image: lending-repay-api:latest
+    restart: unless-stopped
+    build:
+      context: .
+    ports:
+      - "8091:8091"
+    depends_on:
+      - dbPostgresql
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://dbPostgresql:5433/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+  sftp:
+    image: atmoz/sftp
+    volumes:
+      - sftp-data
+    ports:
+      - "2222:22"
+    command: foo:pass:::upload
