@@ -12,6 +12,6 @@ RUN apt-get update \
     apt-get install --no-install-recommends --assume-yes \
       postgresql-client
 VOLUME /tmp
-EXPOSE 8091
-COPY --from=build /usr/app/target/loan-repay-0.0.1.jar loanrepay.jar
-ENTRYPOINT ["java", "-jar","loanrepay.jar"]
+EXPOSE 8092
+COPY --from=build /usr/app/target/elevating-0.0.1.jar elevating.jar
+ENTRYPOINT ["java", "-jar","elevating.jar"]
