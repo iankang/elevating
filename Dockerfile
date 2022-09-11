@@ -7,10 +7,6 @@ ADD . $HOME
 RUN mvn clean package -DskipTests
 
 FROM openjdk:11
-RUN apt-get update \
- && DEBIAN_FRONTEND=noninteractive \
-    apt-get install --no-install-recommends --assume-yes \
-      postgresql-client
 VOLUME /tmp
 EXPOSE 8092
 COPY --from=build /usr/app/target/elevating-0.0.1.jar elevating.jar

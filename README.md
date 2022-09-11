@@ -1,5 +1,5 @@
 # loan-repayment
-spring boot api for loan and repayment system
+spring boot api for simulating an elevator system
 
 ## setup
 for end to end setup:
