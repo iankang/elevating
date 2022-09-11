@@ -1,4 +1,4 @@
-# loan-repayment
+# elevator-simulation
 spring boot api for simulating an elevator system
 
 ## setup
