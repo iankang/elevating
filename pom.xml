@@ -8,7 +8,7 @@
 		<version>2.7.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.elevator</groupId>
+	<groupId>com.building</groupId>
 	<artifactId>elevating</artifactId>
 	<version>0.0.1</version>
 	<name>elevating</name>
