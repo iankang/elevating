@@ -67,7 +67,7 @@ public class ElevatorRestController {
 
     @Operation(summary = "Start an elevator", description = "Starts an elevator to the building", tags = {"elevator"})
     @PostMapping("/startElevator")
-    public ResponseEntity<Elevator> startElevator(
+    public void startElevator(
             @RequestParam  Long elevatorId
     ) throws InterruptedException, ExecutionException{
         logger.info("starting elevator");
@@ -76,6 +76,6 @@ public class ElevatorRestController {
 
         CompletableFuture.allOf(elevatorCompletableFuture);
         logger.info("returned: "+ elevatorCompletableFuture.get());
-        return ResponseEntity.ok(elevatorCompletableFuture.get());
+//        return ResponseEntity.ok(elevatorCompletableFuture.get());
     }
 }

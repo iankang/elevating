@@ -158,9 +158,9 @@ public class ElevatorService {
     private void saveState(Elevator elevator,State state, int i) throws InterruptedException {
         logger.info("saving state");
         Elevator elefeta = new Elevator(elevator, i);
-        elevator.setCurrentFloor(i);
-        elevator.setState(state);
-
+        elefeta.setCurrentFloor(i);
+        elefeta.setState(state);
+        elefeta.setDestinationFloor(elevator.getDestinationFloor());
         logger.info("sleeping for state: "+ state.name());
         Thread.sleep(configureState(state));
         logger.info("awake for state: "+ state.name());
