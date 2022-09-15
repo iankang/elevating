@@ -1,9 +1,11 @@
 package com.elevator.elevating.restControllers;
 
 
+import com.elevator.elevating.entities.Building;
 import com.elevator.elevating.entities.Elevator;
 import com.elevator.elevating.models.Direction;
 import com.elevator.elevating.models.State;
+import com.elevator.elevating.services.BuildingService;
 import com.elevator.elevating.services.ElevatorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,9 +26,11 @@ public class ElevatorRestController {
 
     private final Logger logger = LoggerFactory.getLogger(ElevatorRestController.class);
     private ElevatorService elevatorService;
+    private BuildingService buildingService;
 
-    public ElevatorRestController(ElevatorService elevatorService) {
+    public ElevatorRestController(ElevatorService elevatorService, BuildingService buildingService) {
         this.elevatorService = elevatorService;
+        this.buildingService = buildingService;
     }
 
     @Operation(summary = "Get all elevators", description = "Gets all elevators in a building", tags = {"elevator"})
@@ -46,6 +50,17 @@ public class ElevatorRestController {
             @RequestParam int destinationFloor
     ){
         Elevator ele = new Elevator(elevatorName,direction,state,startingFloor,destinationFloor);
+        return elevatorService.saveBuildingElevator(buildingId,ele);
+    }
+    @Operation(summary = "Add a randomly generated elevator", description = "Adds a randomly generated elevator to the building", tags = {"elevator"})
+    @PostMapping("/addRandElevator")
+    public Elevator addRandElevator(
+            @RequestParam Long buildingId,
+            @RequestParam String elevatorName
+    ){
+        Building bilding = buildingService.getByBuildingId(buildingId);
+        logger.info("bilding: "+ bilding.toString());
+        Elevator ele = new Elevator(elevatorName, bilding);
         return elevatorService.saveBuildingElevator(buildingId,ele);
     }
 

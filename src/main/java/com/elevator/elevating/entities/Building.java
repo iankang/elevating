@@ -2,12 +2,12 @@ package com.elevator.elevating.entities;
 
 import com.elevator.elevating.models.Direction;
 import com.elevator.elevating.models.State;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "building")
 @NoArgsConstructor
@@ -16,10 +16,14 @@ import javax.persistence.*;
 @Setter
 public class Building {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
-    @Column(unique = true)
+
     String buildingName;
     int floors;
 
+    public Building(String buildingName, int floors) {
+        this.buildingName = buildingName;
+        this.floors = floors;
+    }
 }

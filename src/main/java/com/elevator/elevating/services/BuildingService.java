@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 public class BuildingService {
 
-    private BuildingRepository buildingRepository;
+    private final BuildingRepository buildingRepository;
 
     public BuildingService(BuildingRepository buildingRepository) {
         this.buildingRepository = buildingRepository;
@@ -39,10 +39,7 @@ public class BuildingService {
     }
 
     public Building getByBuildingId(Long buildingId){
-        if (existsById(buildingId)){
 
-            return buildingRepository.findById(buildingId).get();
-        }
-        return  null;
+        return buildingRepository.findById(buildingId).get();
     }
 }
